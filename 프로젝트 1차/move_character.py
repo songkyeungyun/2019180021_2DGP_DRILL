@@ -48,30 +48,33 @@ while running:
     clear_canvas()
     isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
     if dir == 1:
-        character.clip_draw(frame * 20, 900, 30, 30, x, y)
+        character.clip_draw(frame * 30, 900, 30, 30, x, y)
     elif dir == 0:
-        character.clip_draw(frame * 20, 900, 30, 30, x, y)
+        character.clip_draw(frame * 30, 900, 30, 30, x, y)
     update_canvas()
 
     handle_events()
     frame = (frame + 1) % 8
-    if x < ISAAC_WIDTH and y < ISAAC_HEIGHT and x > 0 and y > 0:
+    if x < 770 and y < 420 and x > 130 and y > 80:
         x += dirx * 5
-        if x >= ISAAC_WIDTH:
-            x = ISAAC_WIDTH
+        if x >= 770:
             x -= dirx * 5
-        elif x <= 0:
-            x = 0
+        elif x <= 130:
+            if x>= 130 and y <= 250 and y>240:
+                isaac_ground = load_image('stage5.png')
+                x=760
             x -= dirx * 5
         y += diry * 5
-        if y >= ISAAC_HEIGHT:
-            y = ISAAC_HEIGHT
+        if y >= 420:
+            if y<=420 and x >= 445 and x<= 455:
+                isaac_ground = load_image('stage1.png')
+                y=90
             y -= diry * 5
-        elif y <= 0:
-            y = 0
+        elif y <= 80:
+           
             y -= diry * 5
 
-    delay(0.1)
+    delay(0.01)
 
 close_canvas()
 

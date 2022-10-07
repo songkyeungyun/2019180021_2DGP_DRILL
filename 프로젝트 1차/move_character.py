@@ -44,36 +44,120 @@ frame = 0
 dirx = 0
 diry = 0
 dir= 0
+stage=0
 while running:
-    clear_canvas()
-    isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
-    if dir == 1:
-        character.clip_draw(frame * 30, 900, 30, 30, x, y)
-    elif dir == 0:
-        character.clip_draw(frame * 30, 900, 30, 30, x, y)
-    update_canvas()
+    if stage == 0:
+        clear_canvas()
+        isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
+        if dir == 1:
+            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+        elif dir == 0:
+            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+        update_canvas()
 
-    handle_events()
-    frame = (frame + 1) % 8
-    if x < 770 and y < 420 and x > 130 and y > 80:
-        x += dirx * 5
-        if x >= 770:
-            x -= dirx * 5
-        elif x <= 130:
-            if x>= 130 and y <= 250 and y>240:
-                isaac_ground = load_image('stage5.png')
-                x=760
-            x -= dirx * 5
-        y += diry * 5
-        if y >= 420:
-            if y<=420 and x >= 445 and x<= 455:
-                isaac_ground = load_image('stage1.png')
-                y=90
-            y -= diry * 5
-        elif y <= 80:
-           
-            y -= diry * 5
+        handle_events()
+        frame = (frame + 1) % 8
+        if x < 770 and y < 420 and x > 130 and y > 80:
+            x += dirx * 5
+            if x >= 770:
+                x -= dirx * 5
+            elif x <= 130:
+                if x>= 130 and y <= 255 and y> 240:
+                    isaac_ground = load_image('stage5.png')
+                    x = 760
+                    stage = 5
+                x -= dirx * 5
+            y += diry * 5
+            if y >= 420:
+                if y<=420 and x >= 445 and x<= 455:
+                    isaac_ground = load_image('stage1.png')
+                    y = 90
+                    stage = 1
+                y -= diry * 5
+            elif y <= 80:
+                if y>=80 and x>=445 and x<=455:
+                    isaac_ground = load_image('stage2.png')
+                    y = 410
+                    stage = 2
+                y -= diry * 5
+    elif stage == 1:
+        clear_canvas()
+        isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
+        if dir == 1:
+            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+        elif dir == 0:
+            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+        update_canvas()
 
+        handle_events()
+        frame = (frame + 1) % 8
+        if x < 770 and y < 420 and x > 130 and y > 80:
+            x += dirx * 5
+            if x >= 770:
+                x -= dirx * 5
+            elif x <= 130:
+                x -= dirx * 5
+            y += diry * 5
+            if y >= 420:
+                y -= diry * 5
+            elif y <= 80:
+                if y>=80 and x>=445 and x<=455:
+                    isaac_ground = load_image('stage0.png')
+                    y = 410
+                    stage = 0
+                y -= diry * 5
+    elif stage == 5:
+        clear_canvas()
+        isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
+        if dir == 1:
+            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+        elif dir == 0:
+            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+        update_canvas()
+
+        handle_events()
+        frame = (frame + 1) % 8
+        if x < 770 and y < 420 and x > 130 and y > 80:
+            x += dirx * 5
+            if x >= 770:
+                if x <= 770 and y>= 240 and y<= 255:
+                    isaac_ground = load_image('stage0.png')
+                    stage = 0
+                    x = 140
+                x -= dirx * 5
+            elif x <= 130:
+                x -= dirx * 5
+            y += diry * 5
+            if y >= 420:
+                y -= diry * 5
+            elif y <= 80:
+                y -= diry * 5
+    elif stage == 2:
+        clear_canvas()
+        isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
+        if dir == 1:
+            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+        elif dir == 0:
+            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+        update_canvas()
+
+        handle_events()
+        frame = (frame + 1) % 8
+        if x < 770 and y < 420 and x > 130 and y > 80:
+            x += dirx * 5
+            if x >= 770:
+                x -= dirx * 5
+            elif x <= 130:
+                x -= dirx * 5
+            y += diry * 5
+            if y >= 420:
+                if y <= 420 and x >= 445 and x <= 455:
+                    isaac_ground = load_image('stage0.png')
+                    y = 90
+                    stage = 0
+                y -= diry * 5
+            elif y <= 80:
+                y -= diry * 5
     delay(0.01)
 
 close_canvas()

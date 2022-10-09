@@ -36,23 +36,25 @@ def handle_events():
 
 open_canvas(ISAAC_WIDTH, ISAAC_HEIGHT)
 isaac_ground = load_image('stage0.png')
-character = load_image('ss.png')
+character = load_image('oo.png')
 
 running = True
 x, y = ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2
 frame = 0
 dirx = 0
 diry = 0
-dir= 0
+dir= 2
 stage=0
 while running:
     if stage == 0:
         clear_canvas()
         isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
         if dir == 1:
-            character.clip_draw(frame * 85, 100, 50, 100, x, y)
+            character.clip_draw(frame * 66  , 100, 60, 120, x, y)
         elif dir == 0:
-            character.clip_draw(frame * 90, 0, 65, 100, x, y)
+            character.clip_draw(frame * 66  , 0, 60, 100, x, y)
+        elif dir == 2:
+            character.draw_now(x,90)
         update_canvas()
 
         handle_events()
@@ -84,9 +86,9 @@ while running:
         clear_canvas()
         isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
         if dir == 1:
-            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+            character.clip_draw(frame * 66  , 100, 60, 120, x, y)
         elif dir == 0:
-            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+            character.clip_draw(frame * 66  , 0, 60, 100, x, y)
         update_canvas()
 
         handle_events()
@@ -110,9 +112,9 @@ while running:
         clear_canvas()
         isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
         if dir == 1:
-            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+            character.clip_draw(frame * 66  , 100, 60, 120, x, y)
         elif dir == 0:
-            character.clip_draw(frame * 30, 900, 30, 30, x, y)
+            character.clip_draw(frame * 66  , 0, 60, 100, x, y)
         update_canvas()
 
         handle_events()
@@ -136,11 +138,11 @@ while running:
         clear_canvas()
         isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
         if dir == 1:
-            character.clip_draw(frame * 50, 0, 40, 70, x, y)
+            character.clip_draw(frame * 66  , 100, 60, 120, x, y)
         elif dir == 0:
-            character.clip_draw(frame * 50, 0, 40, 70, x, y)
+            character.clip_draw(frame * 66  , 0, 60, 100, x, y)
         update_canvas()
-
+        
         handle_events()
         frame = (frame + 1) % 8
         if x < 770 and y < 420 and x > 130 and y > 80:
@@ -158,7 +160,7 @@ while running:
                 y -= diry * 5
             elif y <= 80:
                 y -= diry * 5
-    delay(0.5)
+    delay(0.05)
 
 close_canvas()
 

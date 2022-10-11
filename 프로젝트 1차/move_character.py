@@ -37,13 +37,15 @@ def handle_events():
 open_canvas(ISAAC_WIDTH, ISAAC_HEIGHT)
 isaac_ground = load_image('stage0.png')
 character = load_image('oo.png')
+monster1 = load_image('monster1 animation.png')
+monster2 = load_image('monster2 animation.png')
 
 running = True
 x, y = ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2
 frame = 0
 dirx = 0
 diry = 0
-dir= 2
+dir= 0
 stage=0
 while running:
     if stage == 0:
@@ -51,14 +53,14 @@ while running:
         isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
         if dir == 1:
             character.clip_draw(frame * 66  , 100, 60, 120, x, y)
+            monster1.clip_draw(frame * 33  , 30, 25, 60, x+50, y+50)
         elif dir == 0:
             character.clip_draw(frame * 66  , 0, 60, 100, x, y)
-        elif dir == 2:
-            character.draw_now(x,90)
+            monster2.clip_draw(frame * 33  , 0, 25, 30, x+50, y+50)
         update_canvas()
 
         handle_events()
-        frame = (frame + 1) % 8
+        frame = (frame + 1) % 4
         if x < 770 and y < 420 and x > 130 and y > 80:
             x += dirx * 5
             if x >= 770:

@@ -42,7 +42,9 @@ monster2 = load_image('monster2 animation.png')
 
 running = True
 x, y = ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2
-frame = 0
+frame1 = 0
+frame2 = 0
+frame3 = 0
 dirx = 0
 diry = 0
 dir= 0
@@ -52,15 +54,16 @@ while running:
         clear_canvas()
         isaac_ground.draw(ISAAC_WIDTH // 2, ISAAC_HEIGHT // 2)
         if dir == 1:
-            character.clip_draw(frame * 66  , 100, 60, 120, x, y)
-            monster1.clip_draw(frame * 33  , 30, 25, 60, x+50, y+50)
+            character.clip_draw(frame1 * 66, 100, 60, 120, x, y)
         elif dir == 0:
-            character.clip_draw(frame * 66  , 0, 60, 100, x, y)
-            monster2.clip_draw(frame * 33  , 0, 25, 30, x+50, y+50)
+            character.clip_draw(frame1 * 66, 0, 60, 100, x, y)
+        monster1.clip_draw(frame2 * 30, 30, 25, 60, x - 50, y - 50)
+        monster2.clip_draw(frame3 * 33, 30, 25, 35, x + 50, y + 50)
         update_canvas()
-
         handle_events()
-        frame = (frame + 1) % 4
+        frame1 = (frame1 + 1) % 8
+        frame2 = (frame2 + 1) % 6
+        frame3 = (frame3 + 1) % 4
         if x < 770 and y < 420 and x > 130 and y > 80:
             x += dirx * 5
             if x >= 770:
@@ -162,7 +165,7 @@ while running:
                 y -= diry * 5
             elif y <= 80:
                 y -= diry * 5
-    delay(0.05)
+    delay(0.03)
 
 close_canvas()
 

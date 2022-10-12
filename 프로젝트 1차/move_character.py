@@ -57,8 +57,8 @@ while running:
             character.clip_draw(frame1 * 66, 100, 60, 120, x, y)
         elif dir == 0:
             character.clip_draw(frame1 * 66, 0, 60, 100, x, y)
-        monster1.clip_draw(frame2 * 30, 30, 25, 60, x - 50, y - 50)
-        monster2.clip_draw(frame3 * 33, 30, 25, 35, x + 50, y + 50)
+        monster1.clip_draw(frame2 * 30, 30, 25, 60, x - 100, y)
+        monster2.clip_draw(frame3 * 33, 30, 25, 35, x + 100, y)
         update_canvas()
         handle_events()
         frame1 = (frame1 + 1) % 8

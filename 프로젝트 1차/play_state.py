@@ -20,6 +20,8 @@ class Isaac:
         self.frame = 0
         self.dir = 1
         self.image = load_image('animation.png')
+        self.tear_image = load_image('attack.png')
+        self.item = 'tear'
 
     def update(self):
         self.frame = (self.frame + 1) % 8
@@ -36,6 +38,8 @@ class Isaac:
             self.image.clip_draw(self.frame * 63, 0, 65, 100, self.x, self.y)
         else:
             self.image.clip_draw(self.frame * 63, 100, 65, 120, self.x, self.y)
+        if self.item == 'tear':
+            self.tear_image.draw(self.x + 50, self.y)
 
 class Monster_1():
     def __init__(self):

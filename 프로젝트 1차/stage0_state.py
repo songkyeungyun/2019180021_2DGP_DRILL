@@ -24,7 +24,7 @@ class Isaac:
         self.dir_y = 0
         self.image = load_image('animation.png')
         self.isaac_image = load_image('isaac.png')
-        self.tear_image = load_image('attack.png')
+        self.tear_image = load_image('tear.png')
         self.item = None
 
     def update(self):
@@ -33,11 +33,11 @@ class Isaac:
         self.y += self.dir_y*5
         if self.x > 700:
             self.x = 700
-        elif self.x < 100:
+        if self.x < 100:
             self.x = 100
         if self.y > 400:
             self.y = 400
-        elif self.y < 100:
+        if self.y < 100:
             self.y = 100
 
     def draw(self):
@@ -107,36 +107,38 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN:
+        if event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                 game_framework.quit()
-            elif event.key == SDLK_i:
+            if event.key == SDLK_i:
                 game_framework.push_state(item_state)
+            if event.key == SDLK_SPACE:
+                isaac.item = 'tear'
         if event.type == SDL_QUIT:
             running = False
-        elif event.type == SDL_KEYDOWN:
+        if event.type == SDL_KEYDOWN:
             if event.key == SDLK_RIGHT:
                 isaac.dir_x = 1
                 isaac.x += isaac.dir_x
-            elif event.key == SDLK_LEFT:
+            if event.key == SDLK_LEFT:
                 isaac.dir_x = -1
                 isaac.x += isaac.dir_x
             if event.key == SDLK_UP:
                 isaac.dir_y += 1
                 isaac.y += isaac.dir_y
-            elif event.key == SDLK_DOWN:
+            if event.key == SDLK_DOWN:
                 isaac.dir_y -= 1
                 isaac.y += isaac.dir_y
-            elif event.key == SDLK_ESCAPE:
+            if event.key == SDLK_ESCAPE:
                 running = False
-        elif event.type == SDL_KEYUP:
+        if event.type == SDL_KEYUP:
             if event.key == SDLK_RIGHT:
                 isaac.dir_x = 0
-            elif event.key == SDLK_LEFT:
+            if event.key == SDLK_LEFT:
                 isaac.dir_x = 0
             if event.key == SDLK_UP:
                 isaac.dir_y = 0
-            elif event.key == SDLK_DOWN:
+            if event.key == SDLK_DOWN:
                 isaac.dir_y = 0
 
 
@@ -156,10 +158,12 @@ def exit():
 
 # 게임 월드 객체를 업데이트 - 게임 로직
 def update():
-    global isaac
+    global isaac, monster1, monster2
     isaac.update()
     monster1.update()
     monster2.update()
+    if isaac.x <= 100 and 250 <= isaac.y <= 260:
+        game_framework.change_state(stage1_state)
     delay(0.02)
 
 

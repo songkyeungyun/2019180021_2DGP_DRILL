@@ -1,7 +1,7 @@
 from pico2d import *
 import game_framework
 import title_state
-import play_state
+import stage0_state
 
 image = None
 
@@ -33,10 +33,10 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             match event.key:
                 case pico2d.SDLK_ESCAPE:
-                    play_state.isaac.item = None
+                    stage0_state.isaac.item = None
                     game_framework.pop_state()
                 case pico2d.SDLK_1:
-                    play_state.isaac.item = 'tear'
+                    stage0_state.isaac.item = 'tear'
                     game_framework.pop_state()
 
 def test_self():

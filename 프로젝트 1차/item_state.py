@@ -7,7 +7,7 @@ image = None
 
 def enter():
     global image
-    image = load_image('attack.png')
+    image = load_image('a.png')
 
 # 게임 종료 - 객체를 소멸
 def exit():
@@ -21,7 +21,7 @@ def update():
     # 게임 월드 렌더링
 def draw():
     clear_canvas()
-    play_state.draw_world()
+    #play_state.draw_world()
     image.draw(400, 300)
     update_canvas()
 
@@ -36,10 +36,7 @@ def handle_events():
                     play_state.boy.item = None
                     game_framework.pop_state()
                 case pico2d.SDLK_1:
-                    play_state.boy.item = '+'
-                    game_framework.pop_state()
-                case pico2d.SDLK_2:
-                    play_state.boy.item = '-'
+                    play_state.boy.item = 'tear'
                     game_framework.pop_state()
 
 def test_self():

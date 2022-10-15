@@ -41,9 +41,11 @@ class Isaac:
             self.y = 100
 
     def draw(self):
-        if self.dir_x == 1 or self.dir_x == -1:
+        if self.dir_x == 1:
             self.image.clip_draw(self.frame * 63, 0, 65, 100, self.x, self.y)
-        elif self.dir_y == -1 or self.dir_y ==  1:
+        elif self.dir_x == -1:
+            self.image.clip_composite_draw(self.frame * 63, 0, 65, 100, 3.141592, 'v', self.x, self.y, 65, 100)
+        elif self.dir_y == -1 or self.dir_y == 1:
             self.image.clip_draw(self.frame * 63, 100, 65, 120, self.x, self.y)
         elif self.dir_x == 0:
             self.isaac_image.draw(self.x, self.y-10)
@@ -189,7 +191,3 @@ def test_self():
 
 if __name__ == '__main__':
     test_self()
-
-
-
-

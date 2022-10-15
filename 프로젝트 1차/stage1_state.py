@@ -15,7 +15,7 @@ class Stage:
 
 class Isaac:
     def __init__(self):
-        self.x = 690
+        self.x = 6900
         self.y = 250
         self.frame = 0
         self.dir_x = 0

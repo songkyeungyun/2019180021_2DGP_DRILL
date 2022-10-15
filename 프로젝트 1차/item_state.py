@@ -33,10 +33,10 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             match event.key:
                 case pico2d.SDLK_ESCAPE:
-                    play_state.boy.item = None
+                    play_state.isaac.item = None
                     game_framework.pop_state()
                 case pico2d.SDLK_1:
-                    play_state.boy.item = 'tear'
+                    play_state.isaac.item = 'tear'
                     game_framework.pop_state()
 
 def test_self():

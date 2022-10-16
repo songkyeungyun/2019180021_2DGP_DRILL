@@ -9,7 +9,7 @@ running = True
 
 class Stage:
     def __init__(self):
-        self.image = load_image('stage5.png')
+        self.image = load_image('stage1.png')
 
     def draw(self):
         self.image.draw(400, 300)
@@ -17,7 +17,7 @@ class Stage:
 class Isaac:
     def __init__(self):
         self.x = 690
-        self.y = 250
+        self.y = 255
         self.frame = 0
         self.dir_x = 0
         self.dir_y = 0
@@ -30,7 +30,10 @@ class Isaac:
         self.frame = (self.frame + 1) % 8
         self.x += self.dir_x*5
         self.y += self.dir_y*5
-        if self.x > 700:
+        if 245 <= self.y <= 285:
+            if self.x > 730:
+                self.x = 730
+        elif self.x > 700:
             self.x = 700
         if self.x < 100:
             self.x = 100
@@ -41,11 +44,11 @@ class Isaac:
 
     def draw(self):
         if self.dir_x == 1:
-            self.image.clip_draw(self.frame * 63, 0, 65, 100, self.x, self.y)
+            self.image.clip_draw(self.frame * 49, 0, 45, 80, self.x, self.y)
         elif self.dir_x == -1:
-            self.image.clip_composite_draw(self.frame * 63, 0, 65, 100, 3.141592, 'v', self.x, self.y, 65, 100)
+            self.image.clip_composite_draw(self.frame * 50, 0, 45, 80, 3.141592, 'v', self.x, self.y, 45, 80)
         elif self.dir_y == -1 or self.dir_y == 1:
-            self.image.clip_draw(self.frame * 63, 100, 65, 120, self.x, self.y)
+            self.image.clip_draw(self.frame * 49, 90, 50, 80, self.x, self.y)
         elif self.dir_x == 0:
             self.isaac_image.draw(self.x, self.y - 10)
         if self.item == 'tear':
@@ -104,8 +107,10 @@ def exit():
 # 게임 월드 객체를 업데이트 - 게임 로직
 def update():
     isaac.update()
-    if isaac.x >= 700 and 250 <= isaac.y <= 250:
-        game_framework.change_state(stage0_state)
+    if isaac.x >= 730 and 245 <= isaac.y <= 285:
+        isaac.dir_x = 0
+        isaac.dir_y = 0
+        game_framework.pop_state()
     delay(0.02)
 
 

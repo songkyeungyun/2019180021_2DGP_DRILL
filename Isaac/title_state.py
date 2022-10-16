@@ -1,12 +1,12 @@
 from pico2d import *
 import game_framework
-import stage0_state
+from Stage import stage0_state
 
 image = None
 
 def enter():
     global image
-    image = load_image('title.png')
+    image = load_image('Image/title.png')
 
 def exit():
     global image

@@ -1,4 +1,3 @@
-import stage0_state
 class GameState:
     def __init__(self, state):
         self.enter = state.enter

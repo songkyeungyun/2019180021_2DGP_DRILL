@@ -1,19 +1,19 @@
 from pico2d import *
 import game_framework
-import title_state
-import stage1_state
-import stage2_state
-import stage3_state
+import Stage.stage1_state as stage1_state
+import Stage.stage2_state as stage2_state
+import Stage.stage3_state as stage3_state
 import item_state
 
 isaac = None
 stage = None
 monster1 = None
 monster2 = None
+tear = None
 running = True
 class Stage:
     def __init__(self):
-        self.image = load_image('stage0.png')
+        self.image = load_image('Image/stage0.png')
 
     def draw(self):
         self.image.draw(400, 300)
@@ -22,15 +22,11 @@ class Isaac:
     def __init__(self):
         self.x = 400
         self.y = 255
-        self.tear_x = self.x
-        self.tear_y = self.y
         self.frame = 0
         self.dir_x = 0
         self.dir_y = 0
-        self.image = load_image('animation.png')
-        self.isaac_image = load_image('isaac.png')
-        self.tear_image = load_image('tear.png')
-        self.item = None
+        self.image = load_image('Image/animation.png')
+        self.isaac_image = load_image('Image/isaac.png')
 
     def update(self):
         self.frame = (self.frame + 1) % 8
@@ -62,8 +58,28 @@ class Isaac:
             self.image.clip_draw(self.frame * 49, 90, 50, 80, self.x, self.y)
         elif self.dir_x == 0:
             self.isaac_image.draw(self.x, self.y-10)
+
+
+class Tear:
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        self.tear_image = load_image('Image/tear.png')
+        self.item = None
+        self.speed = [0, 0]
+
+    def update(self):
+        if self.x > 700 or self.x < 100 or self.y > 400 or self.y < 100:
+            self.item = None
+            self.speed[0] = 0
+            self.speed[1] = 0
+        pass
+    def draw(self):
         if self.item == 'tear':
             self.tear_image.draw(self.x, self.y)
+        self.x += self.speed[0]
+        self.y += self.speed[1]
+
 
 class Monster_1():
     def __init__(self):
@@ -71,7 +87,7 @@ class Monster_1():
         self.y = 100
         self.frame = 0
         self.dir = 1
-        self.image = load_image('monster2 animation.png')
+        self.image = load_image('Image/monster2 animation.png')
 
     def update(self):
         self.frame = (self.frame + 1) % 4
@@ -95,7 +111,7 @@ class Monster_2():
         self.y = 350
         self.frame = 0
         self.dir = -1
-        self.image = load_image('monster1 animation.png')
+        self.image = load_image('Image/monster1 animation.png')
 
     def update(self):
         self.frame = (self.frame + 1) % 6
@@ -115,7 +131,7 @@ class Monster_2():
 
 
 def handle_events():
-    global running, isaac
+    global running, isaac, tear
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -125,8 +141,34 @@ def handle_events():
                 game_framework.quit()
             if event.key == SDLK_i:
                 game_framework.push_state(item_state)
-            if event.key == SDLK_SPACE:
-                isaac.item = 'tear'
+            if event.key == SDLK_w:
+                tear.x = isaac.x
+                tear.y = isaac.y
+                tear.speed[0] = 0
+                tear.speed[1] = 0
+                tear.item = 'tear'
+                tear.speed[1] = 10
+            if event.key == SDLK_a:
+                tear.x = isaac.x
+                tear.y = isaac.y
+                tear.speed[0] = 0
+                tear.speed[1] = 0
+                tear.item = 'tear'
+                tear.speed[0] = -10
+            if event.key == SDLK_s:
+                tear.x = isaac.x
+                tear.y = isaac.y
+                tear.speed[0] = 0
+                tear.speed[1] = 0
+                tear.item = 'tear'
+                tear.speed[1] = -10
+            if event.key == SDLK_d:
+                tear.x = isaac.x
+                tear.y = isaac.y
+                tear.speed[0] = 0
+                tear.speed[1] = 0
+                tear.item = 'tear'
+                tear.speed[0] = 10
         if event.type == SDL_QUIT:
             running = False
         if event.type == SDL_KEYDOWN:
@@ -155,25 +197,27 @@ def handle_events():
                 isaac.dir_y = 0
 
 def enter():
-    global isaac, stage, running, monster1, monster2
+    global isaac, stage, running, monster1, monster2, tear
     isaac = Isaac()
     stage = Stage()
     monster1 = Monster_1()
     monster2 = Monster_2()
+    tear = Tear()
     running = True
     pass
 
 # 게임 종료 - 객체를 소멸
 def exit():
-    global isaac, stage, monster1, monster2
-    del isaac, stage, monster1, monster2
+    global isaac, stage, monster1, monster2, tear
+    del isaac, stage, monster1, monster2, tear
 
 # 게임 월드 객체를 업데이트 - 게임 로직
 def update():
-    global isaac, monster1, monster2
+    global isaac, monster1, monster2, tear
     isaac.update()
     monster1.update()
     monster2.update()
+    tear.update()
     if isaac.x <= 70 and 245 <= isaac.y <= 285:
         isaac.dir_x = 0
         isaac.dir_y = 0
@@ -198,6 +242,7 @@ def draw_world():
     isaac.draw()
     monster1.draw()
     monster2.draw()
+    tear.draw()
 
 # 게임 월드 렌더링
 def draw():
@@ -213,8 +258,10 @@ def resume():
 
 def test_self():
     import sys
+    import os
     this_module = sys.modules['__main__']
     pico2d.open_canvas()
+    os.chdir('..')
     game_framework.run(this_module)
     pico2d.close_canvas()
 

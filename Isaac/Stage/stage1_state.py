@@ -1,7 +1,7 @@
 from pico2d import *
 import game_framework
 import title_state
-import stage0_state
+import Stage.stage0_state as stage0_state
 
 isaac = None
 stage = None
@@ -9,37 +9,37 @@ running = True
 
 class Stage:
     def __init__(self):
-        self.image = load_image('stage2.png')
+        self.image = load_image('Image/stage1.png')
 
     def draw(self):
         self.image.draw(400, 300)
 
 class Isaac:
     def __init__(self):
-        self.x = 400
-        self.y = 110
+        self.x = 690
+        self.y = 255
         self.frame = 0
         self.dir_x = 0
         self.dir_y = 0
-        self.image = load_image('animation.png')
-        self.isaac_image = load_image('isaac.png')
-        self.tear_image = load_image('tear.png')
+        self.image = load_image('Image/animation.png')
+        self.isaac_image = load_image('Image/isaac.png')
+        self.tear_image = load_image('Image/tear.png')
         self.item = None
 
     def update(self):
         self.frame = (self.frame + 1) % 8
         self.x += self.dir_x*5
         self.y += self.dir_y*5
-        if self.x > 700:
+        if 245 <= self.y <= 285:
+            if self.x > 730:
+                self.x = 730
+        elif self.x > 700:
             self.x = 700
         if self.x < 100:
             self.x = 100
         if self.y > 400:
             self.y = 400
-        if 380 <= self.x <= 420:
-            if self.y < 80:
-                self.y = 80
-        elif self.y < 100:
+        if self.y < 100:
             self.y = 100
 
     def draw(self):
@@ -107,7 +107,7 @@ def exit():
 # 게임 월드 객체를 업데이트 - 게임 로직
 def update():
     isaac.update()
-    if isaac.y <= 80 and 380 <= isaac.x <= 420:
+    if isaac.x >= 730 and 245 <= isaac.y <= 285:
         isaac.dir_x = 0
         isaac.dir_y = 0
         game_framework.pop_state()

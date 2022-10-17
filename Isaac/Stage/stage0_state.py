@@ -59,7 +59,6 @@ class Isaac:
         elif self.dir_x == 0:
             self.isaac_image.draw(self.x, self.y-10)
 
-
 class Tear:
     def __init__(self):
         self.x = 0
@@ -141,34 +140,35 @@ def handle_events():
                 game_framework.quit()
             if event.key == SDLK_i:
                 game_framework.push_state(item_state)
-            if event.key == SDLK_w:
-                tear.x = isaac.x
-                tear.y = isaac.y
-                tear.speed[0] = 0
-                tear.speed[1] = 0
-                tear.item = 'tear'
-                tear.speed[1] = 10
-            if event.key == SDLK_a:
-                tear.x = isaac.x
-                tear.y = isaac.y
-                tear.speed[0] = 0
-                tear.speed[1] = 0
-                tear.item = 'tear'
-                tear.speed[0] = -10
-            if event.key == SDLK_s:
-                tear.x = isaac.x
-                tear.y = isaac.y
-                tear.speed[0] = 0
-                tear.speed[1] = 0
-                tear.item = 'tear'
-                tear.speed[1] = -10
-            if event.key == SDLK_d:
-                tear.x = isaac.x
-                tear.y = isaac.y
-                tear.speed[0] = 0
-                tear.speed[1] = 0
-                tear.item = 'tear'
-                tear.speed[0] = 10
+            if tear.item == None:
+                if event.key == SDLK_w:
+                    tear.x = isaac.x
+                    tear.y = isaac.y
+                    tear.speed[0] = 0
+                    tear.speed[1] = 0
+                    tear.item = 'tear'
+                    tear.speed[1] = 10
+                if event.key == SDLK_a:
+                    tear.x = isaac.x
+                    tear.y = isaac.y
+                    tear.speed[0] = 0
+                    tear.speed[1] = 0
+                    tear.item = 'tear'
+                    tear.speed[0] = -10
+                if event.key == SDLK_s:
+                    tear.x = isaac.x
+                    tear.y = isaac.y
+                    tear.speed[0] = 0
+                    tear.speed[1] = 0
+                    tear.item = 'tear'
+                    tear.speed[1] = -10
+                if event.key == SDLK_d:
+                    tear.x = isaac.x
+                    tear.y = isaac.y
+                    tear.speed[0] = 0
+                    tear.speed[1] = 0
+                    tear.item = 'tear'
+                    tear.speed[0] = 10
         if event.type == SDL_QUIT:
             running = False
         if event.type == SDL_KEYDOWN:
@@ -233,7 +233,6 @@ def update():
         isaac.dir_y = 0
         isaac.y = 120
         game_framework.push_state(stage3_state)
-
     delay(0.02)
 
 

@@ -60,6 +60,7 @@ class Isaac:
             self.isaac_image.draw(self.x, self.y-10)
 
 class Tear:
+    list = []
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -68,17 +69,13 @@ class Tear:
         self.speed = [0, 0]
 
     def update(self):
+        self.x += self.speed[0]
+        self.y += self.speed[1]
         if self.x > 700 or self.x < 100 or self.y > 400 or self.y < 100:
             self.item = None
             self.speed[0] = 0
             self.speed[1] = 0
         pass
-    def draw(self):
-        if self.item == 'tear':
-            self.tear_image.draw(self.x, self.y)
-        self.x += self.speed[0]
-        self.y += self.speed[1]
-
 
 class Monster_1():
     def __init__(self):
@@ -94,15 +91,17 @@ class Monster_1():
         if self.x > 400:
             self.dir = -1
             self.x = 400
+            self.y += 50
         elif self.x < 100:
             self.dir = 1
             self.x = 100
+            self.y += 50
 
     def draw(self):
         if self.dir == 1:
             self.image.clip_draw(self.frame * 33, 30, 25, 35, self.x, self.y)
         else:
-            self.image.clip_draw(self.frame * 33, 30, 25, 35, self.x, self.y)
+            self.image.clip_composite_draw(self.frame * 33, 30, 25, 35, 3.141592, 'v', self.x, self.y, 25, 35)
 
 class Monster_2():
     def __init__(self):
@@ -118,9 +117,11 @@ class Monster_2():
         if self.x > 700:
             self.dir = -1
             self.x = 700
+            self.y -= 50
         elif self.x < 400:
             self.dir = 1
             self.x = 400
+            self.y -= 50
 
     def draw(self):
         if self.dir == 1:
@@ -130,7 +131,7 @@ class Monster_2():
 
 
 def handle_events():
-    global running, isaac, tear
+    global running, isaac, tear, i
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -169,6 +170,7 @@ def handle_events():
                     tear.speed[1] = 0
                     tear.item = 'tear'
                     tear.speed[0] = 10
+
         if event.type == SDL_QUIT:
             running = False
         if event.type == SDL_KEYDOWN:
@@ -203,6 +205,7 @@ def enter():
     monster1 = Monster_1()
     monster2 = Monster_2()
     tear = Tear()
+    Tear.list.append(tear)
     running = True
     pass
 
@@ -235,13 +238,13 @@ def update():
         game_framework.push_state(stage3_state)
     delay(0.02)
 
-
 def draw_world():
     stage.draw()
     isaac.draw()
+    if tear.item == 'tear':
+        Tear.list[0].tear_image.draw(tear.x, tear.y)
     monster1.draw()
     monster2.draw()
-    tear.draw()
 
 # 게임 월드 렌더링
 def draw():

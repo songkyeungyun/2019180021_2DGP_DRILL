@@ -91,11 +91,9 @@ class Monster_1():
         if self.x > 400:
             self.dir = -1
             self.x = 400
-            self.y += 50
         elif self.x < 100:
             self.dir = 1
             self.x = 100
-            self.y += 50
 
     def draw(self):
         if self.dir == 1:
@@ -117,11 +115,9 @@ class Monster_2():
         if self.x > 700:
             self.dir = -1
             self.x = 700
-            self.y -= 50
         elif self.x < 400:
             self.dir = 1
             self.x = 400
-            self.y -= 50
 
     def draw(self):
         if self.dir == 1:

@@ -17,7 +17,7 @@ def exit():
 # 게임 월드 객체를 업데이트 - 게임 로직
 def update():
     global logo_time
-    if logo_time > 1.0:
+    if logo_time > 5.0:
         logo_time = 0
         game_framework.change_state(title_state)
     delay(0.01)
